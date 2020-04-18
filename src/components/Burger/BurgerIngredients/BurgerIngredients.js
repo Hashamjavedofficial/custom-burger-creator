@@ -1,6 +1,7 @@
 import React from "react";
 import Aux from "../../../hoc/Auxiliary";
 import classes from "./BurgerIngredients.module.css";
+import PropTypes from "prop-types";
 
 const burgerIngredients = (props) => {
   let ingredient = null;
@@ -33,5 +34,9 @@ const burgerIngredients = (props) => {
   }
 
   return ingredient;
+};
+
+burgerIngredients.propTypes = {
+  type: PropTypes.string.isRequired,
 };
 export default burgerIngredients;
