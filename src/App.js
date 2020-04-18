@@ -1,8 +1,15 @@
 import React, { Component } from "react";
+import Layout from "./components/Layout/Layout";
 
 class App extends Component {
   render() {
-    return <div className="App"></div>;
+    return (
+      <div className="App">
+        <Layout>
+          <h1>Hashaam</h1>
+        </Layout>
+      </div>
+    );
   }
 }
 
