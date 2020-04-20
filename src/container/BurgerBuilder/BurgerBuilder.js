@@ -20,6 +20,7 @@ class BugerBuilder extends Component {
     },
     totalPrice: 4,
     purchaseableStatus: true,
+    purchasing: false,
   };
   purchaseCheckStatus(ingredients) {
     let updateStatus = Object.keys(ingredients)
@@ -67,6 +68,12 @@ class BugerBuilder extends Component {
     });
     this.purchaseCheckStatus(oldIngredients);
   };
+  purchaseHandler = () => {
+    console.log("purchaseHandler hit");
+    this.setState({
+      purchasing: true,
+    });
+  };
   render() {
     const disableInfo = {
       ...this.state.ingredients,
@@ -76,7 +83,7 @@ class BugerBuilder extends Component {
     }
     return (
       <Aux>
-        <Modal>
+        <Modal show={this.state.purchasing}>
           <OrderSummary ingredient={this.state.ingredients} />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
@@ -86,6 +93,7 @@ class BugerBuilder extends Component {
           disabledInfo={disableInfo}
           price={this.state.totalPrice}
           purchaseStatus={this.state.purchaseableStatus}
+          purchasing={this.purchaseHandler}
         />
       </Aux>
     );
