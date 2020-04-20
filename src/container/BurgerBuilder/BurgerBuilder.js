@@ -11,7 +11,17 @@ class BugerBuilder extends Component {
       meat: 0,
     },
   };
-
+  addIngredientHandler = (type) => {
+    const oldCount = this.state.ingredients[type];
+    const newCount = oldCount + 1;
+    const updateIngredient = {
+      ...this.ingredients,
+    };
+    updateIngredient.ingredients[type] = newCount;
+    this.setState({
+      ingredients: updateIngredient,
+    });
+  };
   render() {
     return (
       <Aux>

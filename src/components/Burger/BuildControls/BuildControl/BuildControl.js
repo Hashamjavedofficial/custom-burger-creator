@@ -10,3 +10,5 @@ const buildControl = (props) => {
     </div>
   );
 };
+
+export default buildControl;
