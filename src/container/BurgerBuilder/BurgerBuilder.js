@@ -33,8 +33,6 @@ class BugerBuilder extends Component {
     this.setState({
       purchaseableStatus: updateStatus <= 0,
     });
-    console.log(updateStatus);
-    console.log(this.state.purchaseableStatus);
   }
   addIngredientHandler = (type) => {
     const oldCount = this.state.ingredients[type];
@@ -69,9 +67,14 @@ class BugerBuilder extends Component {
     this.purchaseCheckStatus(oldIngredients);
   };
   purchaseHandler = () => {
-    console.log("purchaseHandler hit");
     this.setState({
       purchasing: true,
+    });
+  };
+  cancelHandler = () => {
+    console.log("cancle handler hit");
+    this.setState({
+      purchasing: false,
     });
   };
   render() {
@@ -83,7 +86,7 @@ class BugerBuilder extends Component {
     }
     return (
       <Aux>
-        <Modal show={this.state.purchasing}>
+        <Modal show={this.state.purchasing} canceled={this.cancelHandler}>
           <OrderSummary ingredient={this.state.ingredients} />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
