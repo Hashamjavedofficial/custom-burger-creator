@@ -77,6 +77,9 @@ class BugerBuilder extends Component {
       purchasing: false,
     });
   };
+  continueHandler = () => {
+    alert("Continue alert");
+  };
   render() {
     const disableInfo = {
       ...this.state.ingredients,
@@ -87,7 +90,12 @@ class BugerBuilder extends Component {
     return (
       <Aux>
         <Modal show={this.state.purchasing} canceled={this.cancelHandler}>
-          <OrderSummary ingredient={this.state.ingredients} />
+          <OrderSummary
+            ingredient={this.state.ingredients}
+            continue={this.continueHandler}
+            cancel={this.cancelHandler}
+            price={this.state.totalPrice}
+          />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BurgerContorls
