@@ -10,15 +10,12 @@ class Layout extends Component {
   };
 
   sideDrawerClosedHandler = () => {
-    console.log("hit");
     this.setState({
       sideDrawerClosedStatus: false,
     });
   };
   drawerMenuHandler = () => {
     this.setState((prevState, props) => {
-      console.log(prevState);
-      console.log(props);
       return {
         sideDrawerClosedStatus: !prevState.sideDrawerClosedStatus,
       };

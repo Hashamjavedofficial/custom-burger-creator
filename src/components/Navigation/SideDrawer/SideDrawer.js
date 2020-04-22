@@ -10,8 +10,6 @@ const sideDrawer = (props) => {
   if (props.show) {
     currentClass = [classes["SideDrawer"], classes["Open"]];
   }
-  console.log(props.show);
-  console.log(currentClass.join(" "));
 
   return (
     <Aux>

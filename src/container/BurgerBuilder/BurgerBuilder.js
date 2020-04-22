@@ -72,7 +72,6 @@ class BugerBuilder extends Component {
     });
   };
   cancelHandler = () => {
-    console.log("cancle handler hit");
     this.setState({
       purchasing: false,
     });
