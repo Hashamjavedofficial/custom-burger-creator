@@ -5,6 +5,7 @@ import BurgerContorls from "../../components/Burger/BuildControls/BuildControls"
 import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import axios from "../../axios";
+import Spinner from "../../components/UI/Spinner/Spinner";
 const INGREDIENT_PRICE = {
   salad: 0.4,
   cheese: 0.5,
@@ -22,6 +23,7 @@ class BugerBuilder extends Component {
     totalPrice: 4,
     purchaseableStatus: true,
     purchasing: false,
+    loading: false,
   };
   purchaseCheckStatus(ingredients) {
     let updateStatus = Object.keys(ingredients)
@@ -77,7 +79,11 @@ class BugerBuilder extends Component {
       purchasing: false,
     });
   };
+
   continueHandler = () => {
+    this.setState({
+      loading: true,
+    });
     const orderInfo = {
       ingredients: this.state.ingredients,
       totalPrice: this.state.totalPrice,
@@ -95,6 +101,10 @@ class BugerBuilder extends Component {
     axios
       .post("/orders.json", orderInfo)
       .then((response) => {
+        this.setState({
+          loading: false,
+          purchasing: false,
+        });
         console.log(response);
       })
       .catch((err) => {
@@ -108,15 +118,21 @@ class BugerBuilder extends Component {
     for (const key in disableInfo) {
       disableInfo[key] = disableInfo[key] <= 0;
     }
+    let orderSummary = (
+      <OrderSummary
+        ingredient={this.state.ingredients}
+        continue={this.continueHandler}
+        cancel={this.cancelHandler}
+        price={this.state.totalPrice}
+      />
+    );
+    if (this.state.loading) {
+      orderSummary = <Spinner />;
+    }
     return (
       <Aux>
         <Modal show={this.state.purchasing} canceled={this.cancelHandler}>
-          <OrderSummary
-            ingredient={this.state.ingredients}
-            continue={this.continueHandler}
-            cancel={this.cancelHandler}
-            price={this.state.totalPrice}
-          />
+          {orderSummary}
         </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BurgerContorls
