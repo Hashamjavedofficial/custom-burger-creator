@@ -4,6 +4,7 @@ import Burger from "../../components/Burger/Burger";
 import BurgerContorls from "../../components/Burger/BuildControls/BuildControls";
 import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
+import axios from "../../axios";
 const INGREDIENT_PRICE = {
   salad: 0.4,
   cheese: 0.5,
@@ -77,7 +78,28 @@ class BugerBuilder extends Component {
     });
   };
   continueHandler = () => {
-    alert("Continue alert");
+    const orderInfo = {
+      ingredients: this.state.ingredients,
+      totalPrice: this.state.totalPrice,
+      customer: {
+        name: "Hasham",
+        address: {
+          street: "Bastami road",
+          city: "lahore",
+          country: "Pakistan",
+        },
+        email: "hasham.hasham1@gmail.com",
+      },
+    };
+
+    axios
+      .post("/orders.json", orderInfo)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   render() {
     const disableInfo = {
