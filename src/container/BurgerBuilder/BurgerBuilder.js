@@ -6,6 +6,7 @@ import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import axios from "../../axios";
 import Spinner from "../../components/UI/Spinner/Spinner";
+import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 const INGREDIENT_PRICE = {
   salad: 0.4,
   cheese: 0.5,
@@ -99,16 +100,18 @@ class BugerBuilder extends Component {
     };
 
     axios
-      .post("/orders.json", orderInfo)
+      .post("/orders.jsn", orderInfo)
       .then((response) => {
         this.setState({
           loading: false,
           purchasing: false,
         });
-        console.log(response);
       })
       .catch((err) => {
-        console.log(err);
+        this.setState({
+          loading: false,
+          purchasing: false,
+        });
       });
   };
   render() {
@@ -148,4 +151,4 @@ class BugerBuilder extends Component {
   }
 }
 
-export default BugerBuilder;
+export default withErrorHandler(BugerBuilder, axios);
