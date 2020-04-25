@@ -22,7 +22,6 @@ class BugerBuilder extends Component {
     loading: false,
     error: false,
   };
-
   componentDidMount() {
     console.log("componentDidMount form BUrger BUilder");
     axios
