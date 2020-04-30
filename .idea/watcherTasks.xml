@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectTasksOptions">
+    <enabled-global>
+      <option value="Prettier Vuejs Template" />
+      <option value="Prettier Angular SVG" />
+      <option value="Prettier JSON" />
+      <option value="Prettier javascript" />
+      <option value="Prettier JSX" />
+      <option value="Prettier HTML" />
+      <option value="Prettier Handlebars" />
+      <option value="Prettier Angular Html" />
+      <option value="Prettier Graph QL" />
+      <option value="Prettier CSS" />
+    </enabled-global>
+  </component>
+</project>

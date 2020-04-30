@@ -93,37 +93,42 @@ class BugerBuilder extends Component {
   };
 
   continueHandler = () => {
-    this.setState({
-      loading: true,
-    });
-    const orderInfo = {
-      ingredients: this.state.ingredients,
-      totalPrice: this.state.totalPrice,
-      customer: {
-        name: "Hasham",
-        address: {
-          street: "Bastami road",
-          city: "lahore",
-          country: "Pakistan",
-        },
-        email: "hasham.hasham1@gmail.com",
-      },
-    };
+    // this.setState({
+    //   loading: true,
+    // });
 
-    axios
-      .post("/orders.json", orderInfo)
-      .then((response) => {
-        this.setState({
-          loading: false,
-          purchasing: false,
-        });
-      })
-      .catch((err) => {
-        this.setState({
-          loading: false,
-          purchasing: false,
-        });
-      });
+    this.props.history.push({
+      pathname: this.props.location.pathname + "checkout",
+    });
+    console.log(this.props.location.pathname + "checkout");
+    // const orderInfo = {
+    //   ingredients: this.state.ingredients,
+    //   totalPrice: this.state.totalPrice,
+    //   customer: {
+    //     name: "Hasham",
+    //     address: {
+    //       street: "Bastami road",
+    //       city: "lahore",
+    //       country: "Pakistan",
+    //     },
+    //     email: "hasham.hasham1@gmail.com",
+    //   },
+    // };
+    // console.log(this.props);
+    // axios
+    //   .post("/orders.json", orderInfo)
+    //   .then((response) => {
+    //     this.setState({
+    //       loading: false,
+    //       purchasing: false,
+    //     });
+    //   })
+    //   .catch((err) => {
+    //     this.setState({
+    //       loading: false,
+    //       purchasing: false,
+    //     });
+    //   });
   };
   render() {
     const disableInfo = {
@@ -168,12 +173,12 @@ class BugerBuilder extends Component {
       orderSummary = <Spinner />;
     }
     return (
-      <Aux>
+      <React.Fragment>
         <Modal show={this.state.purchasing} canceled={this.cancelHandler}>
           {orderSummary}
         </Modal>
         {burger}
-      </Aux>
+      </React.Fragment>
     );
   }
 }
