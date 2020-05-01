@@ -9,11 +9,16 @@ class Checkout extends React.Component {
       meat: 1,
     },
   };
-
+  cancelHandler = () => {
+    console.log(this.props);
+  };
   render() {
     return (
       <div>
-        <CheckoutSummary ingredients={this.state.ingredients} />
+        <CheckoutSummary
+          ingredients={this.state.ingredients}
+          cancel={this.cancelHandler}
+        />
       </div>
     );
   }

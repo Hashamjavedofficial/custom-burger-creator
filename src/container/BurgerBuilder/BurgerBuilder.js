@@ -96,11 +96,11 @@ class BugerBuilder extends Component {
     // this.setState({
     //   loading: true,
     // });
+    console.log(this.props);
 
     this.props.history.push({
       pathname: this.props.location.pathname + "checkout",
     });
-    console.log(this.props.location.pathname + "checkout");
     // const orderInfo = {
     //   ingredients: this.state.ingredients,
     //   totalPrice: this.state.totalPrice,
