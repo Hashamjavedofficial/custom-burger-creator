@@ -11,7 +11,6 @@
       <option value="Prettier Handlebars" />
       <option value="Prettier Angular Html" />
       <option value="Prettier Graph QL" />
-      <option value="Prettier CSS" />
     </enabled-global>
   </component>
 </project>
