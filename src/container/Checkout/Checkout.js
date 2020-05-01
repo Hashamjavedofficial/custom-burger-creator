@@ -11,27 +11,19 @@ class Checkout extends React.Component {
       salad: 0,
       cheese: 0,
     },
-    totalPrice: 0,
-    error: false,
   };
+
   componentDidMount() {
     let temp = parseString.parse(this.props.location.search);
     const total = +temp.totalPrice;
-    if (total.toFixed(2) > 0) {
-      this.setState({
-        ingredients: {
-          bacon: +temp.bacon,
-          meat: +temp.meat,
-          salad: +temp.salad,
-          cheese: +temp.cheese,
-        },
-        totalPrice: total.toFixed(2),
-      });
-    } else {
-      this.props.history.goBack();
+    let actualIngredients = {};
+    for (let i in temp) {
+      actualIngredients[i] = +temp[i];
     }
+    this.setState({
+      ingredients: actualIngredients,
+    });
 
-    console.log(temp);
     // // console.log(this.props.location.state.ingredients);
     // // console.log(this.props.location.state.totalPrice);
     // this.setState({

@@ -96,10 +96,17 @@ class BugerBuilder extends Component {
     // this.setState({
     //   loading: true,
     // });
-    let queryParams = `?bacon=${this.state.ingredients.bacon}&salad=${this.state.ingredients.salad}&meat=${this.state.ingredients.meat}&cheese=${this.state.ingredients.cheese}&totalPrice=${this.state.totalPrice}`;
+    // let queryParams = `?bacon=${this.state.ingredients.bacon}&salad=${this.state.ingredients.salad}&meat=${this.state.ingredients.meat}&cheese=${this.state.ingredients.cheese}&totalPrice=${this.state.totalPrice}`;
+    let query = [];
+    for (let i in this.state.ingredients) {
+      query.push(encodeURI(i) + "=" + encodeURI(this.state.ingredients[i]));
+    }
+    let queryReq = query.join("&");
+    console.log(queryReq);
+
     this.props.history.push({
       pathname: this.props.location.pathname + "checkout",
-      search: queryParams,
+      search: "?" + queryReq,
     });
     // const orderInfo = {
     //   ingredients: this.state.ingredients,
