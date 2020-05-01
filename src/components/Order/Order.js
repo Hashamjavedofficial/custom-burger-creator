@@ -1,11 +1,15 @@
 import React from "react";
 import classes from "./Order.module.css";
 const order = (props) => {
+  let ingredients = [];
+  for (let i in props.ingredients) {
+    ingredients.push(i + " : " + props.ingredients[i] + " ");
+  }
   return (
     <div className={classes.Order}>
-      <p>Ingredients Salad(1)</p>
+      <p>{ingredients.join("")}</p>
       <p>
-        Price <strong>4.08 USD</strong>
+        Price <strong>{props.totalPrice} USD</strong>
       </p>
     </div>
   );
