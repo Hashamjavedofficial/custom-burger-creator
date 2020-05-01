@@ -23,7 +23,7 @@ class BugerBuilder extends Component {
     error: false,
   };
   componentDidMount() {
-    console.log("componentDidMount form BUrger BUilder");
+    console.log("componentDidMount form Brrger Builder");
     axios
       .get("/ingredients.json")
       .then((res) => {
@@ -96,10 +96,10 @@ class BugerBuilder extends Component {
     // this.setState({
     //   loading: true,
     // });
-    console.log(this.props);
-
+    let queryParams = `?bacon=${this.state.ingredients.bacon}&salad=${this.state.ingredients.salad}&meat=${this.state.ingredients.meat}&cheese=${this.state.ingredients.cheese}&totalPrice=${this.state.totalPrice}`;
     this.props.history.push({
       pathname: this.props.location.pathname + "checkout",
+      search: queryParams,
     });
     // const orderInfo = {
     //   ingredients: this.state.ingredients,

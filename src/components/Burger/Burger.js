@@ -3,7 +3,6 @@ import classes from "./Burger.module.css";
 import BurgerIngredient from "./BurgerIngredients/BurgerIngredients";
 import { withRouter } from "react-router-dom";
 const burger = (props) => {
-  console.log(props);
   const transformedIngredients = Object.keys(props.ingredients).map((key) => {
     return [...Array(props.ingredients[key])].map((_, index) => {
       return <BurgerIngredient type={key} key={key + index} />;
