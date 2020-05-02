@@ -92,10 +92,13 @@ class ContactData extends Component {
             },
           ],
         },
-        value: "",
+        value: "fastest",
+        validation: {},
+        valid: true,
       },
     },
     loading: false,
+    forButton: false,
   };
   checkValidation(value, rules) {
     let validator = true;
@@ -155,10 +158,15 @@ class ContactData extends Component {
       orderElement.value,
       orderForm[identifier].validation
     );
+    let forButton = true;
+    for (let key in orderForm) {
+      forButton = orderForm[key].valid && forButton;
+    }
 
-    console.log(orderForm[identifier].valid);
+    console.log(forButton);
     this.setState({
       orderForm: orderForm,
+      forButton: forButton,
     });
   };
   render() {
@@ -186,7 +194,11 @@ class ContactData extends Component {
       <form>
         {inputForm}
 
-        <Button btnType="Success" clicked={this.orderHandler}>
+        <Button
+          btnType="Success"
+          disabled={!this.state.forButton}
+          clicked={this.orderHandler}
+        >
           Order
         </Button>
       </form>
