@@ -93,17 +93,17 @@ class ContactData extends Component {
     loading: false,
   };
   checkValidation(value, rules) {
-    let validator = false;
+    let validator = true;
     if (rules.required) {
-      validator = value.trim() != "";
+      validator = value.trim() != "" && validator;
     }
-    if (value.length >= rules.minlength) {
-      validator = true;
-      console.log("min length");
+    if (value.length < rules.minlength && validator) {
+      validator = false;
+      console.log("min length " + value.length);
     }
-    if (value.length <= rules.maxlength) {
-      validator = true;
-      console.log("max length");
+    if (value.length > rules.maxlength && validator) {
+      validator = false;
+      console.log("max length " + value.length);
     }
     return validator;
   }
