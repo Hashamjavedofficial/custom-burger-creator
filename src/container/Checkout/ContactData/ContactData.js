@@ -17,6 +17,12 @@ class ContactData extends Component {
           placeholder: "Enter your name",
         },
         value: "",
+        validation: {
+          required: true,
+          minlength: 3,
+          maxlength: 9,
+        },
+        valid: false,
       },
       street: {
         elementType: "input",
@@ -25,6 +31,10 @@ class ContactData extends Component {
           placeholder: "Street",
         },
         value: "",
+        validation: {
+          required: true,
+        },
+        valid: false,
       },
       city: {
         elementType: "input",
@@ -33,6 +43,10 @@ class ContactData extends Component {
           placeholder: "Enter City",
         },
         value: "",
+        validation: {
+          required: true,
+        },
+        valid: false,
       },
       country: {
         elementType: "input",
@@ -41,6 +55,10 @@ class ContactData extends Component {
           placeholder: "Enter Country",
         },
         value: "",
+        validation: {
+          required: true,
+        },
+        valid: false,
       },
 
       email: {
@@ -50,6 +68,10 @@ class ContactData extends Component {
           placeholder: "Enter email",
         },
         value: "",
+        validation: {
+          required: true,
+        },
+        valid: false,
       },
       delivery: {
         elementType: "select",
@@ -70,6 +92,21 @@ class ContactData extends Component {
     },
     loading: false,
   };
+  checkValidation(value, rules) {
+    let validator = false;
+    if (rules.required) {
+      validator = value.trim() != "";
+    }
+    if (value.length >= rules.minlength) {
+      validator = true;
+      console.log("min length");
+    }
+    if (value.length <= rules.maxlength) {
+      validator = true;
+      console.log("max length");
+    }
+    return validator;
+  }
   orderHandler = (event) => {
     this.setState({
       loading: true,
@@ -108,6 +145,12 @@ class ContactData extends Component {
     };
     orderElement.value = event.target.value;
     orderForm[identifier] = orderElement;
+    orderForm[identifier].valid = this.checkValidation(
+      orderElement.value,
+      orderForm[identifier].validation
+    );
+
+    console.log(orderForm[identifier].valid);
     this.setState({
       orderForm: orderForm,
     });
