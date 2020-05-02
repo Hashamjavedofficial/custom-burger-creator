@@ -74,18 +74,14 @@ class ContactData extends Component {
     this.setState({
       loading: true,
     });
+    let orderData = {};
+    for (let orderElement in this.state.orderForm) {
+      orderData[orderElement] = this.state.orderForm[orderElement].value;
+    }
     const orderInfo = {
       ingredients: this.props.ingredients,
       totalPrice: this.props.price,
-      customer: {
-        name: "Hasham",
-        address: {
-          street: "Bastami road",
-          city: "lahore",
-          country: "Pakistan",
-        },
-        email: "hasham.hasham1@gmail.com",
-      },
+      orderData: orderData,
     };
     axios
       .post("/orders.json", orderInfo)
@@ -101,7 +97,6 @@ class ContactData extends Component {
         });
       });
     event.preventDefault();
-    console.log(this.props);
   };
 
   inputChangeHandler = (event, identifier) => {
