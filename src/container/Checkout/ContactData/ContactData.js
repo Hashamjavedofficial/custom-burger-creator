@@ -5,14 +5,68 @@ import axios from "../../../axios";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 import Input from "../../../components/UI/Input/Input";
 import { withRouter } from "react-router-dom";
+import { element } from "prop-types";
 
 class ContactData extends Component {
   state = {
-    name: "",
-    email: "",
-    address: {
-      street: "",
-      postalCode: "",
+    orderForm: {
+      name: {
+        elementType: "input",
+        elementConfig: {
+          type: "text",
+          placeholder: "Enter your name",
+        },
+        value: "",
+      },
+      street: {
+        elementType: "input",
+        elementConfig: {
+          type: "text",
+          placeholder: "Street",
+        },
+        value: "",
+      },
+      city: {
+        elementType: "input",
+        elementConfig: {
+          type: "text",
+          placeholder: "Enter City",
+        },
+        value: "",
+      },
+      country: {
+        elementType: "input",
+        elementConfig: {
+          type: "text",
+          placeholder: "Enter Country",
+        },
+        value: "",
+      },
+
+      email: {
+        elementType: "input",
+        elementConfig: {
+          type: "email",
+          placeholder: "Enter email",
+        },
+        value: "",
+      },
+      delivery: {
+        elementType: "select",
+        elementConfig: {
+          options: [
+            {
+              value: "fastest",
+              displayValue: "Fastest",
+            },
+            {
+              value: "cheapest",
+              displayValue: "Cheapest",
+            },
+          ],
+        },
+        value: "",
+      },
     },
     loading: false,
   };
@@ -50,12 +104,27 @@ class ContactData extends Component {
     console.log(this.props);
   };
   render() {
+    const formElementArray = [];
+    for (let key in this.state.orderForm) {
+      formElementArray.push({
+        id: key,
+        config: this.state.orderForm[key],
+      });
+    }
+    const inputForm = formElementArray.map((formElement) => (
+      <Input
+        elementType={formElement.config.elementType}
+        elementConfig={formElement.config.elementConfig}
+        key={formElement.id}
+        value={formElement.config.value}
+      />
+    ));
+    console.log(formElementArray);
+    console.log(inputForm);
     let form = (
       <form>
-        <Input inputtype="input" type="text" placeholder="Name" />
-        <Input inputtype="input" type="email" placeholder="Email" />
-        <Input inputtype="input" type="text" placeholder="Street" />
-        <Input inputtype="input" type="number" placeholder="Postal code" />
+        {inputForm}
+
         <Button btnType="Success" clicked={this.orderHandler}>
           Order
         </Button>
