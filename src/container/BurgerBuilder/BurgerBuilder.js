@@ -15,8 +15,6 @@ const INGREDIENT_PRICE = {
 };
 class BugerBuilder extends Component {
   state = {
-    ingredients: null,
-    totalPrice: 4,
     purchaseableStatus: true,
     purchasing: false,
     loading: false,
@@ -24,18 +22,18 @@ class BugerBuilder extends Component {
   };
   componentDidMount() {
     console.log("componentDidMount form Brrger Builder");
-    axios
-      .get("/ingredients.json")
-      .then((res) => {
-        this.setState({
-          ingredients: res.data,
-        });
-      })
-      .catch((err) => {
-        this.setState({
-          error: err,
-        });
-      });
+    // axios
+    //   .get("/ingredients.json")
+    //   .then((res) => {
+    //     this.setState({
+    //       ingredients: res.data,
+    //     });
+    //   })
+    //   .catch((err) => {
+    //     this.setState({
+    //       error: err,
+    //     });
+    //   });
   }
   purchaseCheckStatus(ingredients) {
     let updateStatus = Object.keys(ingredients)
