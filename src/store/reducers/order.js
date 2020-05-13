@@ -15,7 +15,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.orderSuccessful:
       const newOrder = {
         ...action.orderData,
-        id: orderId,
+        id: action.orderId,
       };
       return {
         ...state,
@@ -32,3 +32,5 @@ const reducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export default reducer;

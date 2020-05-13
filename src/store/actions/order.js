@@ -22,13 +22,13 @@ const purchaseBurgerOrder = () => {
 export const orderInfo = (orderData) => {
   return (dispatch) => {
     {
-      dispatch(actionTypes.purchaseBurgerOrder());
+      dispatch(purchaseBurgerOrder());
       axios
-        .post("/orders.json", orderInfo)
+        .post("/orders.json", orderData)
         .then((response) => {
           console.log("{Order data}", orderData);
           console.log("[response data]", response.data);
-          dispatch(orderSuccessful(response.data, orderData));
+          dispatch(orderSuccessful(response.data.name, orderData));
         })
         .catch((err) => {
           dispatch(orderFailed(err));
