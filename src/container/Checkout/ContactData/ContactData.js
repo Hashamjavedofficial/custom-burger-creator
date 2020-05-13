@@ -5,7 +5,8 @@ import axios from "../../../axios";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 import Input from "../../../components/UI/Input/Input";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import * as actions from "../../../store/actions/index";
+import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
 
 class ContactData extends Component {
   state = {
@@ -117,9 +118,6 @@ class ContactData extends Component {
   }
 
   orderHandler = (event) => {
-    this.setState({
-      loading: true,
-    });
     let orderData = {};
     for (let orderElement in this.state.orderForm) {
       orderData[orderElement] = this.state.orderForm[orderElement].value;
@@ -129,7 +127,7 @@ class ContactData extends Component {
       totalPrice: this.props.price,
       orderData: orderData,
     };
-
+    this.props.onOrder(orderInfo);
     event.preventDefault();
   };
 
@@ -211,4 +209,9 @@ const mapStateToProps = (state) => {
     price: state.totalPrice,
   };
 };
-export default connect(mapStateToProps)(ContactData);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onOrder: (orderData) => dispatch(actions.orderInfo(orderData)),
+  };
+};
+export default connect(mapStateToProps)(withErrorHandler(ContactData));
