@@ -129,19 +129,7 @@ class ContactData extends Component {
       totalPrice: this.props.price,
       orderData: orderData,
     };
-    axios
-      .post("/orders.json", orderInfo)
-      .then((response) => {
-        this.setState({
-          loading: false,
-        });
-        this.props.history.push("/");
-      })
-      .catch((err) => {
-        this.setState({
-          loading: false,
-        });
-      });
+
     event.preventDefault();
   };
 
