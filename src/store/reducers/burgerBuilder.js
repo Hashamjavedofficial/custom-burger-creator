@@ -6,13 +6,9 @@ const INGREDIENT_PRICE = {
   meat: 1.5,
 };
 const initialState = {
-  ingredients: {
-    salad: 0,
-    meat: 0,
-    cheese: 0,
-    bacon: 0,
-  },
+  ingredients: null,
   totalPrice: 4,
+  error: false,
 };
 
 const burgerBuilder = (state = initialState, action) => {
@@ -34,6 +30,16 @@ const burgerBuilder = (state = initialState, action) => {
           [action.ingredientName]: state.ingredients[action.ingredientName] - 1,
         },
         totalPrice: state.totalPrice - INGREDIENT_PRICE[action.ingredientName],
+      };
+    case actionTypes.setIngredients:
+      return {
+        ...state,
+        ingredients: action.ingredients,
+      };
+    case actionTypes.setIngredientsFailed:
+      return {
+        ...state,
+        error: true,
       };
     default:
       return state;

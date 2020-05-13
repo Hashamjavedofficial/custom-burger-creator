@@ -14,23 +14,10 @@ import * as burgerBuilder from "../../store/actions/index";
 class BugerBuilder extends Component {
   state = {
     purchasing: false,
-    loading: false,
-    error: false,
   };
   componentDidMount() {
+    this.props.onSetIngredients();
     console.log("componentDidMount form Brrger Builder");
-    // axios
-    //   .get("/ingredients.json")
-    //   .then((res) => {
-    //     this.setState({
-    //       ingredients: res.data,
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     this.setState({
-    //       error: err,
-    //     });
-    //   });
   }
   purchaseCheckStatus = (ingredients) => {
     let updateStatus = Object.keys(ingredients)
@@ -79,7 +66,7 @@ class BugerBuilder extends Component {
     }
     let orderSummary = null;
 
-    let burger = this.state.error ? (
+    let burger = this.props.error ? (
       <p>Cannot load ingredients </p>
     ) : (
       <Spinner />
@@ -108,10 +95,6 @@ class BugerBuilder extends Component {
         />
       );
     }
-
-    if (this.state.loading) {
-      orderSummary = <Spinner />;
-    }
     return (
       <React.Fragment>
         <Modal show={this.state.purchasing} canceled={this.cancelHandler}>
@@ -127,6 +110,7 @@ const mapStateToProps = (state) => {
   return {
     ingredients: state.ingredients,
     totalPrice: state.totalPrice,
+    error: state.error,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -135,6 +119,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(burgerBuilder.addIngredient(ingredientName)),
     onRemoveIngredient: (ingredientName) =>
       dispatch(burgerBuilder.removeIngredient(ingredientName)),
+    onSetIngredients: () => dispatch(burgerBuilder.initIngredients()),
   };
 };
 
