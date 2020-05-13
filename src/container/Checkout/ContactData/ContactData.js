@@ -190,7 +190,7 @@ class ContactData extends Component {
         </Button>
       </form>
     );
-    if (this.state.loading) {
+    if (this.props.loading) {
       form = <Spinner />;
     }
     return (
@@ -207,6 +207,7 @@ const mapStateToProps = (state) => {
   return {
     ingredients: state.ingredients,
     price: state.totalPrice,
+    loading: state.loading,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -214,4 +215,7 @@ const mapDispatchToProps = (dispatch) => {
     onOrder: (orderData) => dispatch(actions.orderInfo(orderData)),
   };
 };
-export default connect(mapStateToProps)(withErrorHandler(ContactData));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withErrorHandler(ContactData));

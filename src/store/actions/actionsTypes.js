@@ -5,3 +5,4 @@ export const setIngredientsFailed = "SET_INGREDIENTS_FAILED";
 
 export const orderSuccessful = "ORDER_SUCCESSFUL";
 export const orderFailed = "ORDER_FAILED";
+export const purchaseBurgerOrder = "PURCHASE_BURGER_ORDER";

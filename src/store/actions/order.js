@@ -1,6 +1,5 @@
 import * as actionTypes from "../actions/actionsTypes";
 import axios from "../../axios";
-import { orderFailed } from "../actions/actionsTypes";
 
 const orderSuccessful = (orderId, orderData) => {
   return {
@@ -15,9 +14,15 @@ const orderFailed = (error) => {
     error: error,
   };
 };
+const purchaseBurgerOrder = () => {
+  return {
+    type: actionTypes.purchaseBurgerOrder,
+  };
+};
 export const orderInfo = (orderData) => {
   return (dispatch) => {
     {
+      dispatch(actionTypes.purchaseBurgerOrder());
       axios
         .post("/orders.json", orderInfo)
         .then((response) => {

@@ -40,6 +40,7 @@ const burgerBuilder = (state = initialState, action) => {
           cheese: action.ingredients.cheese,
           meat: action.ingredients.meat,
         },
+        error: false,
       };
     case actionTypes.setIngredientsFailed:
       return {
