@@ -98,7 +98,6 @@ class ContactData extends Component {
         valid: true,
       },
     },
-    loading: false,
     forButton: false,
   };
   checkValidation(value, rules) {
@@ -218,4 +217,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withErrorHandler(ContactData));
+)(withErrorHandler(ContactData, axios));
