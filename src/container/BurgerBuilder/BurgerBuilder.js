@@ -8,7 +8,6 @@ import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import axios from "../../axios";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
-import * as actionTypes from "../../store/actions/actionsTypes";
 import * as burgerBuilder from "../../store/actions/index";
 
 class BugerBuilder extends Component {
@@ -17,7 +16,6 @@ class BugerBuilder extends Component {
   };
   componentDidMount() {
     this.props.onSetIngredients();
-    console.log("componentDidMount form Brrger Builder");
   }
   purchaseCheckStatus = (ingredients) => {
     let updateStatus = Object.keys(ingredients)
@@ -30,7 +28,6 @@ class BugerBuilder extends Component {
     console.log(updateStatus);
     return updateStatus <= 0;
   };
-
   purchaseHandler = () => {
     this.setState({
       purchasing: true,
@@ -41,7 +38,6 @@ class BugerBuilder extends Component {
       purchasing: false,
     });
   };
-
   continueHandler = () => {
     // this.setState({
     //   loading: true,
@@ -56,6 +52,7 @@ class BugerBuilder extends Component {
       pathname: this.props.location.pathname + "checkout",
       search: "?" + queryReq + `&totalPrice=${this.props.totalPrice}`,
     });
+    this.props.onPurchasedInit();
   };
   render() {
     const disableInfo = {
@@ -120,6 +117,7 @@ const mapDispatchToProps = (dispatch) => {
     onRemoveIngredient: (ingredientName) =>
       dispatch(burgerBuilder.removeIngredient(ingredientName)),
     onSetIngredients: () => dispatch(burgerBuilder.initIngredients()),
+    onPurchasedInit: () => dispatch(burgerBuilder.purchasedInit()),
   };
 };
 

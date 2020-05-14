@@ -36,3 +36,9 @@ export const orderInfo = (orderData) => {
     }
   };
 };
+
+export const purchasedInit = () => {
+  return {
+    type: actionTypes.purchasedInit,
+  };
+};
