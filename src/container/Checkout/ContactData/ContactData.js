@@ -195,7 +195,6 @@ class ContactData extends Component {
     return (
       <div className={classes.ContactData}>
         <h4>Order Form here</h4>
-
         {form}
       </div>
     );
