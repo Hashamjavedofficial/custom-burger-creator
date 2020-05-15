@@ -16,7 +16,6 @@ const withErrorHandler = (WrappedComponent, axios) => {
         });
         return req;
       });
-
       this.resInterceptor = axios.interceptors.response.use(
         (res) => res,
         (error) => {
@@ -26,13 +25,11 @@ const withErrorHandler = (WrappedComponent, axios) => {
         }
       );
     }
-
     componentWillUnmount() {
       console.log("destroyed" + this.reqInterceptor + this.resInterceptor);
       axios.interceptors.request.eject(this.reqInterceptor);
       axios.interceptors.response.eject(this.resInterceptor);
     }
-
     errorHandler = () => {
       this.setState({
         error: null,

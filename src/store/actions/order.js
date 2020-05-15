@@ -26,8 +26,6 @@ export const orderInfo = (orderData) => {
       axios
         .post("/orders.json", orderData)
         .then((response) => {
-          console.log("{Order data}", orderData);
-          console.log("[response data]", response.data);
           dispatch(orderSuccessful(response.data.name, orderData));
         })
         .catch((err) => {
@@ -40,5 +38,44 @@ export const orderInfo = (orderData) => {
 export const purchasedInit = () => {
   return {
     type: actionTypes.purchasedInit,
+  };
+};
+
+const orderStart = () => {
+  return {
+    type: actionTypes.ORDER_START,
+  };
+};
+const orderSuccess = (orders) => {
+  return {
+    type: actionTypes.ORDER_SUCCESS,
+    orders: orders,
+  };
+};
+const orderFail = (error) => {
+  return {
+    type: actionTypes.ORDER_FAIL,
+    error: error,
+  };
+};
+export const orderGet = () => {
+  return (dispatch) => {
+    dispatch(orderStart());
+    axios
+      .get("/orders.json")
+      .then((response) => {
+        let tempOrders = [];
+        for (let i in response.data) {
+          tempOrders.push({
+            ...response.data[i],
+            key: i,
+          });
+        }
+        console.log(tempOrders);
+        dispatch(orderSuccess(tempOrders));
+      })
+      .catch((err) => {
+        dispatch(orderFail(err));
+      });
   };
 };

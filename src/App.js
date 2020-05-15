@@ -14,10 +14,10 @@ class App extends Component {
         <Layout>
           <Switch>
             <Route path="/" exact component={BurgerBuilder} />
+            <Route path="/orders" component={Orders} />
             <Suspense fallback={<p>Loading .....</p>}>
               <Route path="/checkout" component={checkoutRoute} />
             </Suspense>
-            <Route path="/orders" component={Orders} />
             <Route
               render={() => {
                 return <h1>Not found</h1>;

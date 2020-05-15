@@ -8,6 +8,22 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.ORDER_START:
+      return {
+        ...state,
+        loading: true,
+      };
+    case actionTypes.ORDER_SUCCESS:
+      return {
+        ...state,
+        order: action.orders,
+        loading: false,
+      };
+    case actionTypes.ORDER_FAIL:
+      return {
+        ...state,
+        loading: false,
+      };
     case actionTypes.purchasedInit:
       return {
         ...state,

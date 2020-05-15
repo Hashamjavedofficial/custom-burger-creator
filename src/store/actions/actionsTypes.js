@@ -7,3 +7,7 @@ export const orderSuccessful = "ORDER_SUCCESSFUL";
 export const orderFailed = "ORDER_FAILED";
 export const purchaseBurgerOrder = "PURCHASE_BURGER_ORDER";
 export const purchasedInit = "PURCHASED_INIT";
+
+export const ORDER_START = "ORDER_START";
+export const ORDER_SUCCESS = "ORDER_SUCCESS";
+export const ORDER_FAIL = "ORDER_FAIL";
