@@ -1,60 +1,42 @@
 import * as actionTypes from "../actions/actionsTypes";
-
+import { updateObject } from "./utility";
 const initialState = {
   order: [],
   loading: false,
   purchased: false,
 };
-
+const orderSuccess = (state, action) => {
+  return updateObject(state, {
+    order: action.orders,
+    loading: false,
+  });
+};
+const orderSuccessful = (state, action) => {
+  const newOrder = updateObject(action.orderData, { id: action.orderId });
+  return updateObject(state, {
+    order: state.order.concat(newOrder),
+    purchased: true,
+    loading: false,
+  });
+};
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.ORDER_START:
-      return {
-        ...state,
-        loading: true,
-      };
+      return updateObject(state, { loading: true });
     case actionTypes.ORDER_SUCCESS:
-      return {
-        ...state,
-        order: action.orders,
-        loading: false,
-      };
+      return orderSuccess(state, action);
     case actionTypes.ORDER_FAIL:
-      return {
-        ...state,
-        loading: false,
-      };
+      return updateObject(state, { loading: false });
     case actionTypes.purchasedInit:
-      return {
-        ...state,
-        purchased: false,
-      };
+      return updateObject(state, { purchased: false });
     case actionTypes.purchaseBurgerOrder:
-      return {
-        ...state,
-        loading: true,
-      };
+      return updateObject(state, { loading: true });
     case actionTypes.orderSuccessful:
-      const newOrder = {
-        ...action.orderData,
-
-        id: action.orderId,
-      };
-      return {
-        ...state,
-        order: state.order.concat(newOrder),
-        purchased: true,
-        loading: false,
-      };
+      return orderSuccessful(state, action);
     case actionTypes.orderFailed:
-      return {
-        ...state,
-        loading: false,
-      };
-
+      return updateObject(state, { loading: false });
     default:
       return state;
   }
 };
-
 export default reducer;
