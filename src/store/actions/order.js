@@ -19,12 +19,12 @@ const purchaseBurgerOrder = () => {
     type: actionTypes.purchaseBurgerOrder,
   };
 };
-export const orderInfo = (orderData) => {
+export const orderInfo = (orderData, idToken) => {
   return (dispatch) => {
     {
       dispatch(purchaseBurgerOrder());
       axios
-        .post("/orders.json", orderData)
+        .post("/orders.json?auth=" + idToken, orderData)
         .then((response) => {
           dispatch(orderSuccessful(response.data.name, orderData));
         })
@@ -58,11 +58,11 @@ const orderFail = (error) => {
     error: error,
   };
 };
-export const orderGet = () => {
+export const orderGet = (idToken) => {
   return (dispatch) => {
     dispatch(orderStart());
     axios
-      .get("/orders.json")
+      .get("/orders.json?auth=" + idToken)
       .then((response) => {
         let tempOrders = [];
         for (let i in response.data) {

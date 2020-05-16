@@ -126,7 +126,7 @@ class ContactData extends Component {
       totalPrice: this.props.price,
       orderData: orderData,
     };
-    this.props.onOrder(orderInfo);
+    this.props.onOrder(orderInfo, this.props.idToken);
     event.preventDefault();
   };
 
@@ -206,11 +206,13 @@ const mapStateToProps = (state) => {
     ingredients: state.burgerBuilder.ingredients,
     price: state.burgerBuilder.totalPrice,
     loading: state.order.loading,
+    idToken: state.auth.idToken,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    onOrder: (orderData) => dispatch(actions.orderInfo(orderData)),
+    onOrder: (orderData, idToken) =>
+      dispatch(actions.orderInfo(orderData, idToken)),
   };
 };
 export default connect(
