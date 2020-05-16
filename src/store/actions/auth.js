@@ -1,23 +1,35 @@
-import * as actions from "./actionsTypes";
+import * as actionTypes from "./actionsTypes";
 import axios from "axios";
 
 const authStart = () => {
   console.log("auth_sart hit");
   return {
-    type: actions.AUTH_START,
+    type: actionTypes.AUTH_START,
   };
 };
 const authSuccess = (userId, idToken) => {
   return {
-    type: actions.AUTH_SUCCESS,
+    type: actionTypes.AUTH_SUCCESS,
     userId: userId,
     idToken: idToken,
   };
 };
 const authFail = (error) => {
   return {
-    type: actions.AUTH_FAIL,
+    type: actionTypes.AUTH_FAIL,
     error: error,
+  };
+};
+const authLogout = () => {
+  return {
+    type: actionTypes.AUTH_LOGOUT,
+  };
+};
+const authLogoutChecker = (timer) => {
+  return (dispatch) => {
+    setTimeout(() => {
+      dispatch(authLogout());
+    }, timer * 1000);
   };
 };
 
@@ -39,6 +51,7 @@ export const auth = (email, password, signUp) => {
       .post(address, authData)
       .then((response) => {
         dispatch(authSuccess(response.data.localId, response.data.idToken));
+        dispatch(authLogoutChecker(response.data.expiresIn));
       })
       .catch((err) => {
         dispatch(authFail(err.response.data.error.message));
