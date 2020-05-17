@@ -29,9 +29,13 @@ class BugerBuilder extends Component {
     return updateStatus <= 0;
   };
   purchaseHandler = () => {
-    this.setState({
-      purchasing: true,
-    });
+    if (this.props.isAuth) {
+      this.setState({
+        purchasing: true,
+      });
+    } else {
+      this.props.history.push("/auth");
+    }
   };
   cancelHandler = () => {
     this.setState({
@@ -78,6 +82,7 @@ class BugerBuilder extends Component {
             ingredientRemoved={this.props.onRemoveIngredient}
             disabledInfo={disableInfo}
             price={this.props.totalPrice}
+            isAuth={this.props.isAuth}
             purchaseStatus={this.purchaseCheckStatus(this.props.ingredients)}
             purchasing={this.purchaseHandler}
           />
@@ -108,6 +113,7 @@ const mapStateToProps = (state) => {
     ingredients: state.burgerBuilder.ingredients,
     totalPrice: state.burgerBuilder.totalPrice,
     error: state.burgerBuilder.error,
+    isAuth: state.auth.idToken !== null,
   };
 };
 const mapDispatchToProps = (dispatch) => {
