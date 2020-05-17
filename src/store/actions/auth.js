@@ -30,7 +30,6 @@ export const authLogout = () => {
   };
 };
 const authLogoutChecker = (timer) => {
-  debugger;
   return (dispatch) => {
     setTimeout(() => {
       dispatch(authLogout());

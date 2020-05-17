@@ -17,31 +17,50 @@ class App extends Component {
   }
 
   render() {
+    let route = (
+      <Switch>
+        <Route path="/" exact component={BurgerBuilder} />
+        <Route path="/auth" component={Auth} />
+        <Route
+          render={() => {
+            return <h1>Not found</h1>;
+          }}
+        />
+      </Switch>
+    );
+    if (this.props.isAuth) {
+      route = (
+        <Switch>
+          <Route path="/" exact component={BurgerBuilder} />
+          <Route path="/orders" component={Orders} />
+          <Route path={"/logout"} component={Logout} />
+          <Suspense fallback={<p>Loading .....</p>}>
+            <Route path="/checkout" component={checkoutRoute} />
+          </Suspense>
+          <Route
+            render={() => {
+              return <h1>Not found</h1>;
+            }}
+          />
+        </Switch>
+      );
+    }
+
     return (
       <div className="App">
-        <Layout>
-          <Switch>
-            <Route path="/" exact component={BurgerBuilder} />
-            <Route path="/orders" component={Orders} />
-            <Route path="/auth" component={Auth} />
-            <Route path={"/logout"} component={Logout} />
-            <Suspense fallback={<p>Loading .....</p>}>
-              <Route path="/checkout" component={checkoutRoute} />
-            </Suspense>
-            <Route
-              render={() => {
-                return <h1>Not found</h1>;
-              }}
-            />
-          </Switch>
-        </Layout>
+        <Layout>{route}</Layout>
       </div>
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    isAuth: state.auth.idToken !== null,
+  };
+};
 const mapDispatchToProps = (dispatch) => {
   return {
     onLoginChecker: () => dispatch(actions.authCheckStatus()),
   };
 };
-export default withRouter(connect(null, mapDispatchToProps)(App));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
