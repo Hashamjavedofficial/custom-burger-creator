@@ -4,7 +4,7 @@ import BurgerBuilder from "./container/BurgerBuilder/BurgerBuilder";
 // import Checkout from "./container/Checkout/Checkout";
 import Orders from "./container/Orders/Orders";
 import Auth from "./container/Auth/Auth";
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 import Logout from "./container/Auth/Logout/Logout";
 import { connect } from "react-redux";
 import * as actions from "./store/actions/index";
@@ -21,11 +21,7 @@ class App extends Component {
       <Switch>
         <Route path="/" exact component={BurgerBuilder} />
         <Route path="/auth" component={Auth} />
-        <Route
-          render={() => {
-            return <h1>Not found</h1>;
-          }}
-        />
+        <Redirect to={"/"} />
       </Switch>
     );
     if (this.props.isAuth) {
@@ -34,14 +30,10 @@ class App extends Component {
           <Route path="/" exact component={BurgerBuilder} />
           <Route path="/orders" component={Orders} />
           <Route path={"/logout"} component={Logout} />
+          <Redirect to={"/"} />
           <Suspense fallback={<p>Loading .....</p>}>
             <Route path="/checkout" component={checkoutRoute} />
           </Suspense>
-          <Route
-            render={() => {
-              return <h1>Not found</h1>;
-            }}
-          />
         </Switch>
       );
     }

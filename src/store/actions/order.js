@@ -58,11 +58,12 @@ const orderFail = (error) => {
     error: error,
   };
 };
-export const orderGet = (idToken) => {
+export const orderGet = (idToken, userId) => {
   return (dispatch) => {
     dispatch(orderStart());
+    const queryParams = `?auth=${idToken}&orderBy="userId"&equalTo="${userId}"`;
     axios
-      .get("/orders.json?auth=" + idToken)
+      .get("/orders.json" + queryParams)
       .then((response) => {
         let tempOrders = [];
         for (let i in response.data) {
