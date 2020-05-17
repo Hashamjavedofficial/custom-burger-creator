@@ -6,10 +6,16 @@ import Orders from "./container/Orders/Orders";
 import Auth from "./container/Auth/Auth";
 import { Route, Switch } from "react-router-dom";
 import Logout from "./container/Auth/Logout/Logout";
+import { connect } from "react-redux";
+import * as actions from "./store/actions/index";
 const checkoutRoute = React.lazy(() => {
   return import("./container/Checkout/Checkout");
 });
 class App extends Component {
+  componentDidMount() {
+    this.props.onLoginChecker();
+  }
+
   render() {
     return (
       <div className="App">
@@ -33,5 +39,9 @@ class App extends Component {
     );
   }
 }
-
-export default App;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLoginChecker: () => dispatch(actions.authCheckStatus()),
+  };
+};
+export default connect(null, mapDispatchToProps)(App);
