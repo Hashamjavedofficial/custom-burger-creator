@@ -4,7 +4,7 @@ import BurgerBuilder from "./container/BurgerBuilder/BurgerBuilder";
 // import Checkout from "./container/Checkout/Checkout";
 import Orders from "./container/Orders/Orders";
 import Auth from "./container/Auth/Auth";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 import Logout from "./container/Auth/Logout/Logout";
 import { connect } from "react-redux";
 import * as actions from "./store/actions/index";
@@ -44,4 +44,4 @@ const mapDispatchToProps = (dispatch) => {
     onLoginChecker: () => dispatch(actions.authCheckStatus()),
   };
 };
-export default connect(null, mapDispatchToProps)(App);
+export default withRouter(connect(null, mapDispatchToProps)(App));
