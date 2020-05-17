@@ -34,6 +34,7 @@ class BugerBuilder extends Component {
         purchasing: true,
       });
     } else {
+      this.props.onSetRedirectPath("/checkout");
       this.props.history.push("/auth");
     }
   };
@@ -124,6 +125,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actions.removeIngredient(ingredientName)),
     onSetIngredients: () => dispatch(actions.initIngredients()),
     onPurchasedInit: () => dispatch(actions.purchasedInit()),
+    onSetRedirectPath: (path) => dispatch(actions.authRedirectPath(path)),
   };
 };
 

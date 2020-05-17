@@ -39,6 +39,12 @@ class Auth extends Component {
     },
     signUp: true,
   };
+  componentDidMount() {
+    if (!this.props.burgerBuilding && this.props.path !== "/") {
+      this.props.onSetRedirectPath();
+    }
+  }
+
   checkValidation(value, rules) {
     let validator = true;
     if (rules.required) {
@@ -111,7 +117,9 @@ class Auth extends Component {
       inputForm = <Spinner />;
     }
     const heading = this.props.error ? this.props.error : "Login Form";
-    const redirect = this.props.isAuth ? <Redirect to={"/"} /> : null;
+    const redirect = this.props.isAuth ? (
+      <Redirect to={this.props.path} />
+    ) : null;
     return (
       <div className={classes.Auth}>
         {redirect}
@@ -133,6 +141,8 @@ const mapStateToProps = (state) => {
     loading: state.auth.loading,
     error: state.auth.error,
     isAuth: state.auth.idToken !== null,
+    burgerBuilding: state.burgerBuilder.burger,
+    path: state.auth.path,
   };
 };
 
@@ -140,6 +150,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onAuth: (email, password, method) =>
       dispatch(actions.auth(email, password, method)),
+    onSetRedirect: () => dispatch(actions.authRedirectPath("/")),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);

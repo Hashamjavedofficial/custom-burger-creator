@@ -58,3 +58,9 @@ export const auth = (email, password, signUp) => {
       });
   };
 };
+export const authRedirectPath = (path) => {
+  return {
+    type: actionTypes.AUTH_REDIRECT_PATH,
+    path: path,
+  };
+};
