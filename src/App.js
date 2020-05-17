@@ -5,6 +5,7 @@ import BurgerBuilder from "./container/BurgerBuilder/BurgerBuilder";
 import Orders from "./container/Orders/Orders";
 import Auth from "./container/Auth/Auth";
 import { Route, Switch } from "react-router-dom";
+import Logout from "./container/Auth/Logout/Logout";
 const checkoutRoute = React.lazy(() => {
   return import("./container/Checkout/Checkout");
 });
@@ -17,6 +18,7 @@ class App extends Component {
             <Route path="/" exact component={BurgerBuilder} />
             <Route path="/orders" component={Orders} />
             <Route path="/auth" component={Auth} />
+            <Route path={"/logout"} component={Logout} />
             <Suspense fallback={<p>Loading .....</p>}>
               <Route path="/checkout" component={checkoutRoute} />
             </Suspense>

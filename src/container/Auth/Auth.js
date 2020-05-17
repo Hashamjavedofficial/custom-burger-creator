@@ -5,6 +5,7 @@ import Button from "../../components/UI/Button/Button";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
+import {Redirect} from 'react-router-dom'
 class Auth extends Component {
   state = {
     controls: {
@@ -110,8 +111,10 @@ class Auth extends Component {
       inputForm = <Spinner />;
     }
     const heading = this.props.error ? this.props.error : "Login Form";
+    const redirect = this.props.isAuth ? <Redirect to={'/'} /> ? null;
     return (
       <div className={classes.Auth}>
+        {redirect}
         <form onSubmit={this.onFormSubmitHandler}>
           <h4>{heading}</h4>
           {inputForm}
@@ -129,6 +132,7 @@ const mapStateToProps = (state) => {
   return {
     loading: state.auth.loading,
     error: state.auth.error,
+    isAuth:state.auth.idToken !== null
   };
 };
 
