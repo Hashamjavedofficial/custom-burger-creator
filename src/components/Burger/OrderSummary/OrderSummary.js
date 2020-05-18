@@ -1,8 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import Aux from "../../../hoc/Auxiliary/Auxiliary";
 import Button from "../../UI/Button/Button";
-import { Link } from "react-router-dom";
-
 const orderSummary = (props) => {
   const ingredientList = Object.keys(props.ingredient).map((key) => {
     return (
@@ -21,7 +19,6 @@ const orderSummary = (props) => {
       </p>
       <p>Do you want to proceed?</p>
       <Button btnType={"Success"} clicked={props.continue}>
-        {/*<Link to="/checkout">Continue</Link>*/}
         Continue
       </Button>
       <Button btnType={"Danger"} clicked={props.cancel}>

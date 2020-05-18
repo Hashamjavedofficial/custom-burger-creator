@@ -1,5 +1,4 @@
 import React from "react";
-import Aux from "../../../hoc/Auxiliary/Auxiliary";
 import classes from "./BurgerIngredients.module.css";
 import PropTypes from "prop-types";
 

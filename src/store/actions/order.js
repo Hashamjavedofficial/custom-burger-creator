@@ -72,7 +72,6 @@ export const orderGet = (idToken, userId) => {
             key: i,
           });
         }
-        console.log(tempOrders);
         dispatch(orderSuccess(tempOrders));
       })
       .catch((err) => {

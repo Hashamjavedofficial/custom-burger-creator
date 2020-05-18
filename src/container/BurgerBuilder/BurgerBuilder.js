@@ -25,7 +25,7 @@ class BugerBuilder extends Component {
       .reduce((ass, curr) => {
         return ass + curr;
       }, 0);
-    console.log(updateStatus);
+
     return updateStatus <= 0;
   };
   purchaseHandler = () => {

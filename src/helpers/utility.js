@@ -7,7 +7,7 @@ export const updateObject = (state, updatedProperties) => {
 export const checkValidation = (value, rules) => {
   let validator = true;
   if (rules.required) {
-    validator = value.trim() != "" && validator;
+    validator = value.trim() !== "" && validator;
   }
   if (value.length < rules.minlength && validator) {
     validator = false;
