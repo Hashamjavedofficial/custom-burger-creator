@@ -4,7 +4,6 @@
     <enabled-global>
       <option value="Prettier Vuejs Template" />
       <option value="Prettier Angular SVG" />
-      <option value="Prettier JSON" />
       <option value="Prettier javascript" />
       <option value="Prettier JSX" />
       <option value="Prettier HTML" />

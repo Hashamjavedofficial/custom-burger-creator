@@ -9,8 +9,16 @@ import Logout from "./container/Auth/Logout/Logout";
 import { connect } from "react-redux";
 import * as actions from "./store/actions/index";
 import Checkout from "./container/Checkout/Checkout";
-const checkoutRoute = React.lazy(() => {
+import asyncComponent from "./hoc/LazyLoading/asyncComponent";
+
+const asyncCheckout = asyncComponent(() => {
   return import("./container/Checkout/Checkout");
+});
+const asyncAuth = asyncComponent(() => {
+  return import("./container/Auth/Auth");
+});
+const asyncOrders = asyncComponent(() => {
+  return import("./container/Orders/Orders");
 });
 class App extends Component {
   componentDidMount() {
@@ -21,7 +29,7 @@ class App extends Component {
     let route = (
       <Switch>
         <Route path="/" exact component={BurgerBuilder} />
-        <Route path="/auth" component={Auth} />
+        <Route path="/auth" component={asyncAuth} />
         <Redirect to={"/"} />
       </Switch>
     );
@@ -29,10 +37,10 @@ class App extends Component {
       route = (
         <Switch>
           <Route path="/" exact component={BurgerBuilder} />
-          <Route path="/orders" component={Orders} />
+          <Route path="/orders" component={asyncOrders} />
           <Route path={"/logout"} component={Logout} />
-          <Route path="/checkout" component={Checkout} />
-          <Route path="/auth" component={Auth} />
+          <Route path="/checkout" component={asyncCheckout} />
+          <Route path="/auth" component={asyncAuth} />
           <Redirect to={"/"} />
         </Switch>
       );
