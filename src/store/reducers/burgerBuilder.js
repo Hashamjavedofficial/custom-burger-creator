@@ -1,5 +1,5 @@
 import * as actionTypes from "../actions/actionsTypes";
-import { updateObject } from "./utility";
+import { updateObject } from "../../helpers/utility";
 const INGREDIENT_PRICE = {
   salad: 0.4,
   cheese: 0.5,
@@ -19,9 +19,7 @@ const addIngredients = (state, action) => {
       ...state.ingredients,
       [action.ingredientName]: state.ingredients[action.ingredientName] + 1,
     },
-    totalPrice: parseFloat(
-      state.totalPrice + INGREDIENT_PRICE[action.ingredientName]
-    ).toFixed(2),
+    totalPrice: state.totalPrice + INGREDIENT_PRICE[action.ingredientName],
     burger: true,
   });
 };
@@ -31,9 +29,7 @@ const removeIngredients = (state, action) => {
       ...state.ingredients,
       [action.ingredientName]: state.ingredients[action.ingredientName] - 1,
     },
-    totalPrice: parseFloat(
-      state.totalPrice - INGREDIENT_PRICE[action.ingredientName]
-    ).toFixed(2),
+    totalPrice: state.totalPrice - INGREDIENT_PRICE[action.ingredientName],
     burger: true,
   });
 };

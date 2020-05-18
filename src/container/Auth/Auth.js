@@ -6,6 +6,7 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 import { Redirect } from "react-router-dom";
+import { updateObject } from "../../helpers/utility";
 class Auth extends Component {
   state = {
     controls: {
@@ -61,19 +62,16 @@ class Auth extends Component {
     return validator;
   }
   inputChangeHandler = (event, identifier) => {
-    let orderForm = {
-      ...this.state.controls,
-    };
-    let orderElement = {
-      ...orderForm[identifier],
-    };
-    orderElement.value = event.target.value;
-    orderForm[identifier] = orderElement;
-    orderForm[identifier].touched = true;
-    orderForm[identifier].valid = this.checkValidation(
-      orderElement.value,
-      orderForm[identifier].validation
-    );
+    let orderForm = updateObject(this.state.controls, {
+      [identifier]: updateObject(this.state.controls[identifier], {
+        touched: true,
+        value: event.target.value,
+        valid: this.checkValidation(
+          event.target.value,
+          this.state.controls[identifier].validation
+        ),
+      }),
+    });
     this.setState({
       controls: orderForm,
     });

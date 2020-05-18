@@ -7,6 +7,7 @@ import Input from "../../../components/UI/Input/Input";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions/index";
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
+import { updateObject } from "../../../helpers/utility";
 
 class ContactData extends Component {
   state = {
@@ -132,19 +133,30 @@ class ContactData extends Component {
   };
 
   inputChangeHandler = (event, identifier) => {
-    let orderForm = {
-      ...this.state.orderForm,
-    };
-    let orderElement = {
-      ...orderForm[identifier],
-    };
-    orderElement.value = event.target.value;
-    orderForm[identifier] = orderElement;
-    orderForm[identifier].touched = true;
-    orderForm[identifier].valid = this.checkValidation(
-      orderElement.value,
-      orderForm[identifier].validation
-    );
+    let orderForm = updateObject(this.state.orderForm, {
+      [identifier]: updateObject(this.state.orderForm[identifier], {
+        value: event.target.value,
+        touched: true,
+        valid: this.checkValidation(
+          event.target.value,
+          this.state.orderForm[identifier].validation
+        ),
+      }),
+    });
+
+    // {
+    //   ...this.state.orderForm,
+    // };
+    // let orderElement = {
+    //   ...orderForm[identifier],
+    // };
+    // orderElement.value = event.target.value;
+    // orderForm[identifier] = orderElement;
+    // orderForm[identifier].touched = true;
+    // orderForm[identifier].valid = this.checkValidation(
+    //   orderElement.value,
+    //   orderForm[identifier].validation
+    // );
     let forButton = true;
     for (let key in orderForm) {
       forButton = orderForm[key].valid && forButton;

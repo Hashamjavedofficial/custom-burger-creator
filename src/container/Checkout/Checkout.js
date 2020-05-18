@@ -3,8 +3,6 @@ import CheckoutSummary from "../../components/Order/CheckoutSummary/CheckoutSumm
 import ContactData from "./ContactData/ContactData";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import * as action from "../../store/actions/index";
-import parseString from "query-string";
 
 class Checkout extends React.Component {
   cancelHandler = () => {
