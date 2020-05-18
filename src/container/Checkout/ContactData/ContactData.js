@@ -7,7 +7,7 @@ import Input from "../../../components/UI/Input/Input";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions/index";
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
-import { updateObject } from "../../../helpers/utility";
+import { updateObject, checkValidation } from "../../../helpers/utility";
 
 class ContactData extends Component {
   state = {
@@ -101,21 +101,6 @@ class ContactData extends Component {
     },
     forButton: false,
   };
-  checkValidation(value, rules) {
-    let validator = true;
-    if (rules.required) {
-      validator = value.trim() != "" && validator;
-    }
-    if (value.length < rules.minlength && validator) {
-      validator = false;
-      console.log("min length " + value.length);
-    }
-    if (value.length > rules.maxlength && validator) {
-      validator = false;
-      console.log("max length " + value.length);
-    }
-    return validator;
-  }
 
   orderHandler = (event) => {
     let orderData = {};
@@ -137,7 +122,7 @@ class ContactData extends Component {
       [identifier]: updateObject(this.state.orderForm[identifier], {
         value: event.target.value,
         touched: true,
-        valid: this.checkValidation(
+        valid: checkValidation(
           event.target.value,
           this.state.orderForm[identifier].validation
         ),
