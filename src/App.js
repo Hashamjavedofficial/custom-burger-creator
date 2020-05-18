@@ -8,6 +8,7 @@ import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 import Logout from "./container/Auth/Logout/Logout";
 import { connect } from "react-redux";
 import * as actions from "./store/actions/index";
+import Checkout from "./container/Checkout/Checkout";
 const checkoutRoute = React.lazy(() => {
   return import("./container/Checkout/Checkout");
 });
@@ -30,10 +31,9 @@ class App extends Component {
           <Route path="/" exact component={BurgerBuilder} />
           <Route path="/orders" component={Orders} />
           <Route path={"/logout"} component={Logout} />
+          <Route path="/checkout" component={Checkout} />
+          <Route path="/auth" component={Auth} />
           <Redirect to={"/"} />
-          <Suspense fallback={<p>Loading .....</p>}>
-            <Route path="/checkout" component={checkoutRoute} />
-          </Suspense>
         </Switch>
       );
     }

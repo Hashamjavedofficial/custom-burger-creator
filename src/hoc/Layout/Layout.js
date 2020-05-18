@@ -28,6 +28,7 @@ class Layout extends Component {
         <SideDrawer
           show={this.state.sideDrawerClosedStatus}
           clicked={this.sideDrawerClosedHandler}
+          isAuth={this.props.isAuth}
         />
         <main className={classes.Content}>{this.props.children}</main>
       </Aux>

@@ -17,7 +17,7 @@ const orderSummary = (props) => {
       <p>Your Delicious burger contain following ingredients : </p>
       <ul>{ingredientList}</ul>
       <p>
-        <strong>Total Price: {props.price.toFixed(2)}</strong>
+        <strong>Total Price: {parseFloat(props.price).toFixed(2)}</strong>
       </p>
       <p>Do you want to proceed?</p>
       <Button btnType={"Success"} clicked={props.continue}>
