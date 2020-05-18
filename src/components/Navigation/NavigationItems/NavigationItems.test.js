@@ -18,4 +18,10 @@ describe("NavigationItems", () => {
     wrapper.setProps({ isAuth: true });
     expect(wrapper.find(NavigationItem)).toHaveLength(3);
   });
+  it("Single test for navigation is not auth", () => {
+    wrapper.setProps({ isAuth: true });
+    expect(
+      wrapper.contains(<NavigationItem link={"/logout"}>Logout</NavigationItem>)
+    ).toEqual(true);
+  });
 });
