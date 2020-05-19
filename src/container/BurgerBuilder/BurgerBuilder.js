@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Aux from "../../hoc/Auxiliary/Auxiliary";
 import Burger from "../../components/Burger/Burger";
-import BurgerContorls from "../../components/Burger/BuildControls/BuildControls";
+import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import axios from "../../axios";
@@ -10,7 +10,7 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import * as actions from "../../store/actions/index";
 
-class BugerBuilder extends Component {
+export class BugerBuilder extends Component {
   state = {
     purchasing: false,
   };
@@ -78,7 +78,7 @@ class BugerBuilder extends Component {
       burger = (
         <Aux>
           <Burger ingredients={this.props.ingredients} />
-          <BurgerContorls
+          <BuildControls
             ingredientAdded={this.props.onAddIngredient}
             ingredientRemoved={this.props.onRemoveIngredient}
             disabledInfo={disableInfo}
