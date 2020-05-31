@@ -52,23 +52,7 @@ export const authRedirectPath = (path) => {
   };
 };
 export const authCheckStatus = () => {
-  return (dispatch) => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      dispatch(authLogout());
-    } else {
-      const expiration = new Date(localStorage.getItem("expireTime"));
-      if (expiration >= new Date()) {
-        const userId = localStorage.getItem("userId");
-        dispatch(authSuccess(userId, token));
-        dispatch(
-          authLogoutChecker(
-            (expiration.getTime() - new Date().getTime()) / 1000
-          )
-        );
-      } else {
-        dispatch(authLogout());
-      }
-    }
+  return {
+    type: actionTypes.AUTH_CHECK_STATUS,
   };
 };
