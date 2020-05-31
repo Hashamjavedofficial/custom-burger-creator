@@ -21,12 +21,12 @@ const authFail = (error) => {
   };
 };
 export const authLogout = () => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("userId");
-  localStorage.removeItem("expireTime");
+  // localStorage.removeItem("token");
+  // localStorage.removeItem("userId");
+  // localStorage.removeItem("expireTime");
 
   return {
-    type: actionTypes.AUTH_LOGOUT,
+    type: actionTypes.AUTH_LOGOUT_INITIATE,
   };
 };
 const authLogoutChecker = (timer) => {
