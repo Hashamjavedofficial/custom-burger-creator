@@ -19,20 +19,13 @@ export const setIngredients = (ingredients) => {
     ingredients: ingredients,
   };
 };
-const setIngredientsError = () => {
+export const setIngredientsError = () => {
   return {
     type: actionType.setIngredientsFailed,
   };
 };
 export const initIngredients = () => {
-  return (dispatch) => {
-    axios
-      .get("/ingredients.json")
-      .then((res) => {
-        dispatch(setIngredients(res.data));
-      })
-      .catch((err) => {
-        dispatch(setIngredientsError());
-      });
+  return {
+    type: actionType.INI_INGREDIENTS,
   };
 };
