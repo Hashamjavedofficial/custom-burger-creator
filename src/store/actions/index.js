@@ -6,4 +6,10 @@ export {
 
 export { orderInfo, purchasedInit, orderGet } from "./order";
 
-export { auth, authLogout, authRedirectPath, authCheckStatus } from "./auth";
+export {
+  auth,
+  authLogout,
+  authRedirectPath,
+  authCheckStatus,
+  authLogoutSuccess,
+} from "./auth";

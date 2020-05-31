@@ -29,11 +29,20 @@ export const authLogout = () => {
     type: actionTypes.AUTH_LOGOUT_INITIATE,
   };
 };
+export const authLogoutSuccess = () => {
+  return {
+    type: actionTypes.AUTH_LOGOUT,
+  };
+};
 const authLogoutChecker = (timer) => {
-  return (dispatch) => {
-    setTimeout(() => {
-      dispatch(authLogout());
-    }, timer * 1000);
+  // return (dispatch) => {
+  //   setTimeout(() => {
+  //     dispatch(authLogout());
+  //   }, timer * 1000);
+  // };
+  return {
+    type: actionTypes.AUTH_LOGOUT_CHECKER,
+    timer: timer * 1000,
   };
 };
 
