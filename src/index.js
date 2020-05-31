@@ -11,7 +11,7 @@ import order from "./store/reducers/order";
 import authReducer from "./store/reducers/auth";
 import thunk from "redux-thunk";
 import createReduxSagaMiddleware from "redux-saga";
-import { fileWatch } from "./store/saga/index";
+import { fileWatch, burgerBuilderWatch, orderWatch } from "./store/saga/index";
 
 const composeEnhancers =
   process.env.NODE_ENV === "development"
@@ -28,6 +28,8 @@ const store = createStore(
   composeEnhancers(applyMiddleware(thunk, sagaMiddleware))
 );
 sagaMiddleware.run(fileWatch);
+sagaMiddleware.run(burgerBuilderWatch);
+sagaMiddleware.run(orderWatch);
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter basename="/my-app/">

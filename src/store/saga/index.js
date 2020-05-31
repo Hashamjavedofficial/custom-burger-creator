@@ -1,4 +1,4 @@
-import { takeEvery } from "redux-saga/effects";
+import { takeEvery, all, takeLatest } from "redux-saga/effects";
 import * as actionTypes from "../actions/actionsTypes";
 import {
   authLogoutSaga,
@@ -9,11 +9,17 @@ import {
 import { initIngredientsSaga } from "./burgerBuilder";
 import { orderInfoSaga, orderGetSaga } from "./order";
 export function* fileWatch() {
-  yield takeEvery(actionTypes.AUTH_LOGOUT_INITIATE, authLogoutSaga);
-  yield takeEvery(actionTypes.AUTH_LOGOUT_CHECKER, authLogoutCheckerSaga);
-  yield takeEvery(actionTypes.AUTH, authSaga);
-  yield takeEvery(actionTypes.AUTH_CHECK_STATUS, authCheckStatusSaga);
+  yield all([
+    takeEvery(actionTypes.AUTH_LOGOUT_INITIATE, authLogoutSaga),
+    takeEvery(actionTypes.AUTH_LOGOUT_CHECKER, authLogoutCheckerSaga),
+    takeEvery(actionTypes.AUTH, authSaga),
+    takeEvery(actionTypes.AUTH_CHECK_STATUS, authCheckStatusSaga),
+  ]);
+}
+export function* burgerBuilderWatch() {
   yield takeEvery(actionTypes.INI_INGREDIENTS, initIngredientsSaga);
-  yield takeEvery(actionTypes.ORDER_INFO, orderInfoSaga);
+}
+export function* orderWatch() {
+  yield takeLatest(actionTypes.ORDER_INFO, orderInfoSaga);
   yield takeEvery(actionTypes.GET_ORDERS, orderGetSaga);
 }

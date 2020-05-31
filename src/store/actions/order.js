@@ -1,4 +1,5 @@
 import * as actionTypes from "../actions/actionsTypes";
+import axios from "../../axios";
 
 export const orderSuccessful = (orderId, orderData) => {
   return {
@@ -19,6 +20,19 @@ export const purchaseBurgerOrder = () => {
   };
 };
 export const orderInfo = (orderData, idToken) => {
+  // return (dispatch) => {
+  //   {
+  //     dispatch(purchaseBurgerOrder());
+  //     axios
+  //       .post("/orders.json?auth=" + idToken, orderData)
+  //       .then((response) => {
+  //         dispatch(orderSuccessful(response.data.name, orderData));
+  //       })
+  //       .catch((err) => {
+  //         dispatch(orderFailed(err));
+  //       });
+  //   }
+  // };
   return {
     type: actionTypes.ORDER_INFO,
     orderData,
