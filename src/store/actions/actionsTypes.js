@@ -12,6 +12,8 @@ export const purchasedInit = "PURCHASED_INIT";
 export const ORDER_START = "ORDER_START";
 export const ORDER_SUCCESS = "ORDER_SUCCESS";
 export const ORDER_FAIL = "ORDER_FAIL";
+export const ORDER_INFO = "ORDER_INFO";
+export const GET_ORDERS = "GET_ORDERS";
 
 export const AUTH_START = "AUTH_START";
 export const AUTH_SUCCESS = "AUTH_SUCCESS";
