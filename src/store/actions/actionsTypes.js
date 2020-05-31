@@ -18,5 +18,6 @@ export const AUTH_FAIL = "AUTH_FAIL";
 export const AUTH_LOGOUT = "AUTH_LOGOUT";
 export const AUTH_LOGOUT_INITIATE = "AUTH_LOGOUT_INITIATE";
 export const AUTH_LOGOUT_CHECKER = "AUTH_LOGOUT_CHECKER";
+export const AUTH = "AUTH";
 
 export const AUTH_REDIRECT_PATH = "AUTH_REDIRECT_PATH";
