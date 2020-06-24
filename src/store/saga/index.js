@@ -16,6 +16,7 @@ export function* fileWatch() {
     takeEvery(actionTypes.AUTH_CHECK_STATUS, authCheckStatusSaga),
   ]);
 }
+
 export function* burgerBuilderWatch() {
   yield takeEvery(actionTypes.INI_INGREDIENTS, initIngredientsSaga);
 }
