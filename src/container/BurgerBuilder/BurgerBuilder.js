@@ -29,7 +29,6 @@ const BugerBuilder = (props) => {
   };
   const purchaseHandler = () => {
     if (props.isAuth) {
-      console.log("hit is auth if");
       setPurchasing(true);
     } else {
       props.onSetRedirectPath("/checkout");
