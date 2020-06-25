@@ -38,11 +38,12 @@ const Auth = (props) => {
     },
   });
   const [signUp, setSignUp] = useState(true);
+  const { burgerBuilding, path, onSetRedirect } = props;
   useEffect(() => {
-    if (!props.burgerBuilding && props.path !== "/") {
-      props.onSetRedirect();
+    if (!burgerBuilding && path !== "/") {
+      onSetRedirect();
     }
-  }, []);
+  }, [burgerBuilding, path, onSetRedirect]);
 
   const inputChangeHandler = (event, identifier) => {
     let orderForm = updateObject(controls, {

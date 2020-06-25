@@ -6,9 +6,10 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 import Spinner from "../../components/UI/Spinner/Spinner";
 const Orders = (props) => {
+  const { getOrders, idToken, userId } = props;
   useEffect(() => {
-    props.getOrders(props.idToken, props.userId);
-  }, []);
+    getOrders(idToken, userId);
+  }, [getOrders, idToken, userId]);
 
   let orders = <Spinner />;
   if (!props.loading) {
