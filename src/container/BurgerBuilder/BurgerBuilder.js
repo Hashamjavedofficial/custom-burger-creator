@@ -13,25 +13,7 @@ import * as actions from "../../store/actions/index";
 const BugerBuilder = (props) => {
   const [purchasing, setPurchasing] = useState(false);
 
-  const dispatch = useDispatch();
-
-  const onAddIngredient = (ingredientName) =>
-    dispatch(actions.addIngredient(ingredientName));
-  const onRemoveIngredient = (ingredientName) =>
-    dispatch(actions.removeIngredient(ingredientName));
-  const onSetIngredients = useCallback(() =>
-    dispatch(actions.initIngredients())
-  );
-  const onPurchasedInit = () => dispatch(actions.purchasedInit());
-  const onSetRedirectPath = (path) => dispatch(actions.authRedirectPath(path));
-
-  const ingredients = useSelector((state) => {
-    return state.burgerBuilder.ingredients;
-  });
-  const totalPrice = useSelector((state) => state.burgerBuilder.totalPrice);
-  const error = useSelector((state) => state.burgerBuilder.error);
-  const isAuth = useSelector((state) => state.auth.idToken !== null);
-
+  const { onSetIngredients } = props;
   useEffect(() => {
     onSetIngredients();
   }, [onSetIngredients]);
@@ -48,10 +30,10 @@ const BugerBuilder = (props) => {
     return updateStatus <= 0;
   };
   const purchaseHandler = () => {
-    if (isAuth) {
+    if (props.isAuth) {
       setPurchasing(true);
     } else {
-      onSetRedirectPath("/checkout");
+      props.onSetRedirectPath("/checkout");
       props.history.push("/auth");
     }
   };
@@ -64,48 +46,48 @@ const BugerBuilder = (props) => {
     // });
     // let queryParams = `?bacon=${this.state.ingredients.bacon}&salad=${this.state.ingredients.salad}&meat=${this.state.ingredients.meat}&cheese=${this.state.ingredients.cheese}&totalPrice=${this.state.totalPrice}`;
     let query = [];
-    for (let i in ingredients) {
-      query.push(encodeURI(i) + "=" + encodeURI(ingredients[i]));
+    for (let i in props.ingredients) {
+      query.push(encodeURI(i) + "=" + encodeURI(props.ingredients[i]));
     }
     let queryReq = query.join("&");
     props.history.push({
       pathname: props.location.pathname + "checkout",
-      search: "?" + queryReq + `&totalPrice=${totalPrice}`,
+      search: "?" + queryReq + `&totalPrice=${props.totalPrice}`,
     });
-    onPurchasedInit();
+    props.onPurchasedInit();
   };
 
   const disableInfo = {
-    ...ingredients,
+    ...props.ingredients,
   };
   for (const key in disableInfo) {
     disableInfo[key] = disableInfo[key] <= 0;
   }
   let orderSummary = null;
 
-  let burger = error ? <p>Cannot load ingredients </p> : <Spinner />;
+  let burger = props.error ? <p>Cannot load ingredients </p> : <Spinner />;
 
-  if (ingredients) {
+  if (props.ingredients) {
     burger = (
       <Aux>
-        <Burger ingredients={ingredients} />
+        <Burger ingredients={props.ingredients} />
         <BuildControls
-          ingredientAdded={onAddIngredient}
-          ingredientRemoved={onRemoveIngredient}
+          ingredientAdded={props.onAddIngredient}
+          ingredientRemoved={props.onRemoveIngredient}
           disabledInfo={disableInfo}
-          price={totalPrice}
-          isAuth={isAuth}
-          purchaseStatus={purchaseCheckStatus(ingredients)}
+          price={props.totalPrice}
+          isAuth={props.isAuth}
+          purchaseStatus={purchaseCheckStatus(props.ingredients)}
           purchasing={purchaseHandler}
         />
       </Aux>
     );
     orderSummary = (
       <OrderSummary
-        ingredient={ingredients}
+        ingredient={props.ingredients}
         continue={continueHandler}
         cancel={cancelHandler}
-        price={totalPrice}
+        price={props.totalPrice}
       />
     );
   }
@@ -119,4 +101,27 @@ const BugerBuilder = (props) => {
   );
 };
 
-export default withErrorHandler(BugerBuilder, axios);
+const mapStateToProps = (state) => {
+  return {
+    ingredients: state.burgerBuilder.ingredients,
+    totalPrice: state.burgerBuilder.totalPrice,
+    error: state.burgerBuilder.error,
+    isAuth: state.auth.idToken !== null,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAddIngredient: (ingredientName) =>
+      dispatch(actions.addIngredient(ingredientName)),
+    onRemoveIngredient: (ingredientName) =>
+      dispatch(actions.removeIngredient(ingredientName)),
+    onSetIngredients: () => dispatch(actions.initIngredients()),
+    onPurchasedInit: () => dispatch(actions.purchasedInit()),
+    onSetRedirectPath: (path) => dispatch(actions.authRedirectPath(path)),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withErrorHandler(BugerBuilder, axios));
